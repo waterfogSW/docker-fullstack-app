@@ -16,7 +16,7 @@ after_success:
   - docker build -t waterfogsw/docker-backend ./backend
   - docker build -t waterfogsw/docker-nginx ./nginx
 
-  - echo "$DOCKER_HUB_PASSWORD" | docker login "$DOCKER_HUB_ID" --password-stdin
+  - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_ID" --password-stdin
 
   - docker push waterfogsw/docker-frontend
   - docker push waterfogsw/docker-backend
