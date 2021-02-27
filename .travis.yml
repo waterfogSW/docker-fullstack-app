@@ -1,0 +1,23 @@
+language: generic
+
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker build -t waterfogsw/react-test-app -f ./frontend/Dockerfile.dev ./frontend
+
+script:
+  - docker run -e CI=true waterfogsw/react-test-app npm run test
+
+after_success:
+  - docker build -t waterfogsw/docker-frontend ./frontend
+  - docker build -t waterfogsw/docker-backend ./backend
+  - docker build -t waterfogsw/docker-nginx ./nginx
+
+  - echo "$DOCKER_HUB_PASSWORD" | docker login "$DOCKER_HUB_ID" --password-stdin
+
+  - docker push waterfogsw/docker-frontend
+  - docker push waterfogsw/docker-backend
+  - docker push waterfogsw/docker-nginx
