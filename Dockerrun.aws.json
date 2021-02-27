@@ -9,7 +9,7 @@
             "memory": 128
         },
         {
-            "name": "frontend",
+            "name": "backend",
             "image": "waterfogsw/docker-backend",
             "hostname": "backend",
             "essential": false,
